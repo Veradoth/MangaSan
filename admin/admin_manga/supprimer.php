@@ -1,44 +1,54 @@
 <?php
-    require_once("style.php");
-?>
+require_once("style_manga.php");
 
-<!doctype html>
-<html lang="fr">
-    <head>
-    <meta charset="UTF-8">
-    <title>Supprimer un manga</title>
-    </head>
-    <body>
-        <h1>Supprimer un manga</h1>
-        <p><a href ="admin.php">Retour</a></p>
-        <?php
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["numManga"])){
+    require_once ("../../config/config.php");
 
-        if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["numManga"])){
-            include "../config/config.php";
+    $num = $_POST['numManga'];
+
+    // 1. Supprimer les éditions (editages) associées à ce manga
+    $sqlDeleteEditages = "DELETE FROM editage WHERE id_manga = ?";
+    $stmtDeleteEditages = $connexion->prepare($sqlDeleteEditages);
+
+    if ($stmtDeleteEditages) {
+        $stmtDeleteEditages->bind_param("i", $num);
+        $stmtDeleteEditages->execute();
+        $stmtDeleteEditages->close();
+    }
+
+    // 2. Supprimer le manga
+    $sqlSelectImage = "SELECT nom_image FROM manga WHERE id = ?";
+    $stmtSelectImage = $connexion->prepare($sqlSelectImage);
+
+    if ($stmtSelectImage) {
+        $stmtSelectImage->bind_param("i", $num);
+        $stmtSelectImage->execute();
+        $stmtSelectImage->store_result();
         
-            $num = $_POST['numManga'];
+        if ($stmtSelectImage->num_rows > 0) {
+            $stmtSelectImage->bind_result($nomFichier);
+            $stmtSelectImage->fetch();
+            
+            $content_dir = '../../catalogue/images/';
+            $cheminFichier = $content_dir . $nomFichier;
 
-            $sql = "SELECT nom_image FROM manga WHERE id = $num;";
-            $result = $connexion->query($sql);
+            if (unlink($cheminFichier)) {
+                $sqlDeleteManga = "DELETE FROM manga WHERE id = ?";
+                $stmtDeleteManga = $connexion->prepare($sqlDeleteManga);
 
-            if ($result->num_rows > 0){
-                $row = $result->fetch_assoc();
-                $nomFichier = $row['nom_image'];
+                if ($stmtDeleteManga) {
+                    $stmtDeleteManga->bind_param("i", $num);
+                    $stmtDeleteManga->execute();
+                    $stmtDeleteManga->close();
 
-                $content_dir = '../catalogue/images/';
-                $cheminFichier = $content_dir . $nomFichier;
-
-                if (unlink($cheminFichier)){
-                    $sql = "DELETE FROM manga WHERE id = $num;";
-                    $connexion->query($sql); 
-                    if(!$connexion->errno){
-                        header("Location:admin.php");
+                    if (!$connexion->errno) {
+                        header("Location: admin_manga.php?success=3");
                     }
                 }
             }
-            mysqli_close($connexion) ;
         }
-        ?>
-        
-    </body>
-</html>
+    }
+
+    mysqli_close($connexion);
+}
+?>

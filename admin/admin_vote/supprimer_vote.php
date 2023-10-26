@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Informations du vote</title>
-    <link rel="stylesheet" type="text/css" href="afficher.css">
+    <link rel="stylesheet" type="text/css" href="afficher_vote.css">
 </head>
 <body>
     <?php

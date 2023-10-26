@@ -5,7 +5,7 @@
 <title>Edition</title>
 </head>
 <body><h1>Donnner ses impressions</h1>
-<p><a href='../accueil.php'>Retour</a></p>
+<p><a href='../index.php'>Retour</a></p>
 <form action = 'editer.php' method ='POST'>
 Manga : <select name='numManga' id="mangaSelect" onchange="showFields()">
     <option value="0">Sélectionnez un manga</option>

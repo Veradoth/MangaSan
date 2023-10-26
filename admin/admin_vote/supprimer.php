@@ -1,7 +1,3 @@
-<?php
-    require_once("../style.php");
-?>
-
 <!doctype html>
 <html lang="fr">
     <head>
@@ -14,13 +10,13 @@
         <?php
 
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["numVote"])){
-            include "../config/config.php";
+            include "../../config/config.php";
         
             $num = $_POST['numVote'];
             $sql = "DELETE FROM vote WHERE id = $num;";
             $connexion->query($sql); 
             if(!$connexion->errno){
-                header("Location:admin_vote.php");
+                header("Location:admin_vote.php?success=6");
             }
             mysqli_close($connexion) ;
         }

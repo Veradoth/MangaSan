@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="fr">
     <head>
@@ -27,7 +26,7 @@
 
                 if ($voteActuel){
                     $nom = $_POST['newNom'] !== '' ? $_POST['newNom'] : $voteActuel['nom'];
-                    $nombre = $_POST['newNombre'] !== '' ? $_POST['newNombre'] : $voteActuel['nombre'];
+                    $nombre = $_POST['newNombre'] !== '' ? $_POST['newNombre'] : $voteActuel['participant'];
                     $duree = $_POST['newDuree'] !== '' ? $_POST['newDuree'] : $voteActuel['duree'];
 
                     
@@ -36,7 +35,7 @@
                         if ($stmt) {
                             $stmt->bind_param("sssi", $nom, $nombre, $duree, $num);
                             if ($stmt->execute()) {
-                                echo 'Le vote a été modifié avec succès.<br>';
+                                header("Location:admin_vote.php?success=5");
                             } else {
                                 echo 'Erreur lors de la mise à jour du vote : ' . $stmt->error . '<br>';
                             }

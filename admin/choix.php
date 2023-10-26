@@ -11,11 +11,11 @@
     <select id="action">
         <option value="manga">Manga</option>
         <option value="vote">Vote</option>
+        <option value="membres">Membres</option>
     </select>
     <button id="submit">Confirmer</button>
-    <button onclick="window.location.href='../accueil.php';" class="btnLogin-popup" name="valider">Retour</button>
+    <button onclick="window.location.href='../index.php';" class="btnLogin-popup" name="valider">Retour</button>
 
     <script src="choix.js"></script>
-    <script src="style.js"></script>
 </body>
 </html>

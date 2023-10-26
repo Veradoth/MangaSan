@@ -21,11 +21,14 @@
         <input type="text" name="mail" value="<?= htmlspecialchars($_POST["mail"] ?? "") ?>"> <!-- Champ de saisie de l'adresse e-mail avec la valeur précédemment saisie -->
         <label>Mot de passe</label>
         <input type="password" name="mdp"> <!-- Champ de saisie du mot de passe -->
-        <label>Vous n'avez pas de compte ?</label>
-        <a href="inscription.php">S'inscrire</a> <!-- Lien pour s'inscrire -->
-        <br>
         <button type="submit" name="valider"> Se connecter</button> <!-- Bouton pour soumettre le formulaire -->
+        <br>
     </form>
+    <label>Vous n'avez pas de compte ?</label>
+    <a href="inscription.php">S'inscrire</a> <!-- Lien pour s'inscrire -->
+    <br>
+    <a href="mail.php">Mot de passe oublié ?</a>
+    <br>
     <button onclick="window.location.href='../accueil.php';" class="btnLogin-popup">Retour</button> <!-- Bouton pour revenir à la page d'accueil -->
 </section>
 </body>

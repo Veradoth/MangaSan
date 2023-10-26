@@ -65,6 +65,7 @@ body{
     transform-origin: left;
     transform: scaleX(1);
 }
+
 /*Le bouton Login*/
 .navigation .btnLogin-popup{
     width: 130px;
@@ -106,6 +107,8 @@ body{
 /* Style des champs de saisie */
 .form-container input[type="text"],
 .form-container input[type="number"],
+.form-container input[type="date"],
+.form-container textarea,
 .form-container input[type="time"] {
     width: 100%;
     padding: 10px;
@@ -128,3 +131,58 @@ body{
 .form-container input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+.success-message {
+    background-color: #4CAF50; /* Couleur de fond verte */
+    color: #fff; /* Couleur du texte en blanc */
+    padding: 10px; /* Espace intérieur pour le texte */
+    text-align: center; /* Alignement du texte au centre */
+    opacity: 0; /* Par défaut, le message est transparent */
+    animation: showSuccess 2s , hideSuccess 3s 2s; /* Animation d'apparition et de disparition */
+}
+
+@keyframes showSuccess {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes hideSuccess {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Style du label */
+label[for="mangas"] {
+    display: block; /* Afficher le label sur une nouvelle ligne */
+    margin-top: 10px; /* Marge supérieure pour l'espacement */
+    font-weight: bold; /* Texte en gras */
+    font-size: 16px; /* Taille de la police */
+    color: #333; /* Couleur du texte */
+}
+
+/* Style de la liste déroulante multisélection */
+select[name="mangas"] {
+    width: 100%; /* Largeur à 100% de son contenant */
+    height: 150px; /* Hauteur de la liste déroulante (ajustez selon vos besoins) */
+    padding: 10px; /* Remplissage interne pour l'espacement à l'intérieur de la liste déroulante */
+    border: 1px solid #ccc; /* Bordure de 1 pixel avec une couleur grise */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 14px; /* Taille de la police */
+    color: #333; /* Couleur du texte */
+    background-color: #fff; /* Couleur de fond blanche */
+}
+
+/* Style des options de la liste déroulante multisélection */
+select[name="mangas"] option {
+    padding: 5px; /* Remplissage interne pour l'espacement des options */
+}
+
+

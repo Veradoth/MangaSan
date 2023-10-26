@@ -14,7 +14,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="../accueil.php">Accueil</a>
+                <a class="navbar-brand" href="../index.php">Accueil</a>
                 </form>
             </div>
             </div>
@@ -24,13 +24,28 @@
     <div class="center">
         <h1>Liste des votes ouverts</h1><br><br>
         <div class="voiture">
-        <div class="card" style="width: 18rem;">
-                    <img src="" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">2023</h5>
-                        <p class="card-text"></p>
-                    </div>
-        </div>
+
+            <?php
+            require_once("../config/pdo.php");
+
+            $sql = 'SELECT * FROM vote';
+            $stmt = $connexion->prepare($sql);
+            $stmt->execute();
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                // Échapper les données pour éviter les attaques XSS
+                $nom = htmlspecialchars($row['nom']);
+                $duree = htmlspecialchars($row['duree']);
+                $id = $row['id']; // Utilisez l'ID pour créer un lien sécurisé
+
+            }
+            ?>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $nom ?><?=$duree?></h5>
+                    <a href="info.php?id=' . $id . '" class="btn btn-primary">Voir informations</a>
+                </div>
+            </div>
         </div>
     </div>
 </body>

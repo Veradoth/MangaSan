@@ -14,7 +14,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="../accueil.php">Accueil</a>
+                <a class="navbar-brand" href="../index.php">Accueil</a>
                 </form>
             </div>
             </div>
@@ -41,16 +41,15 @@
                 $nom_image = htmlspecialchars($row['nom_image']);
                 $id = $row['id']; // Utilisez l'ID pour créer un lien sécurisé
 
-                // Utilisez l'ID dans l'URL pour afficher les détails du manga en toute sécurité
-                echo '<div class="card" style="width: 18rem;">';
-                echo '<img src="images/' . $nom_image . '" class="card-img-top" alt="...">';
-                echo '<div class="card-body">';
-                echo '<h5 class="card-title">' . $nom . '</h5>';
-                echo '<a href="info.php?id=' . $id . '" class="btn btn-primary">Voir informations</a>';
-                echo '</div>';
-                echo '</div>';
             }
             ?>
+            <div class="card" style="width: 18rem;">
+                <img src="images/<?=$nom_image?>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><?=$nom?></h5>
+                    <a href="info.php?id=' . $id . '" class="btn btn-primary">Voir informations</a>
+                </div>
+            </div>
         </div>
     </div>
 </body>

@@ -24,7 +24,7 @@ elseif (isset($_SESSION["admin_id"])){
     <header class="header-up"> <!-- En-tête en haut du site -->
         <h2 class="logo">MangaSan</h2>
         <nav class="navigation">
-            <a href="accueil.php">Accueil</a>
+            <a href="index.php">Accueil</a>
             <a href="#">A propos</a>
             <a href="#">Service</a>
             <a href="#">Contact</a>
