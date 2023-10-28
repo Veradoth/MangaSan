@@ -29,7 +29,7 @@
     <br>
     <a href="mail.php">Mot de passe oublié ?</a>
     <br>
-    <button onclick="window.location.href='../accueil.php';" class="btnLogin-popup">Retour</button> <!-- Bouton pour revenir à la page d'accueil -->
+    <button onclick="window.location.href='../index.php';" class="btnLogin-popup">Retour</button> <!-- Bouton pour revenir à la page d'accueil -->
 </section>
 </body>
 </html>
