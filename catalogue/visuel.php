@@ -41,15 +41,17 @@
                 $nom_image = htmlspecialchars($row['nom_image']);
                 $id = $row['id']; // Utilisez l'ID pour créer un lien sécurisé
 
+            ?>
+                <div class="card" style="width: 18rem;">
+                    <img src="images/<?=$nom_image?>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><?=$nom?></h5>
+                        <a href="info.php?id=<?php echo $id; ?>" class="btn btn-primary">Voir informations</a>
+                    </div>
+                </div>
+            <?php
             }
             ?>
-            <div class="card" style="width: 18rem;">
-                <img src="images/<?=$nom_image?>" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><?=$nom?></h5>
-                    <a href="info.php?id=' . $id . '" class="btn btn-primary">Voir informations</a>
-                </div>
-            </div>
         </div>
     </div>
 </body>

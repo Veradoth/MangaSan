@@ -39,23 +39,22 @@
                     $date_sortie = htmlspecialchars($row['date_sortie']);
                     $descrip = htmlspecialchars($row['descrip']);
                     $nom_image = htmlspecialchars($row['nom_image']);
-
-                    // Affichez les détails du manga
-                    echo '<div class="card mb-3">';
-                    echo '<div class="row g-0">';
-                    echo '<div class="col-md-4">';
-                    echo '<img src="images/' . $nom_image . '" class="img-fluid rounded-start" alt="...">';
-                    echo '</div>';
-                    echo '<div class="col-md-8">';
-                    echo '<div class="card-body">';
-                    echo '<p class="card-text">Nom : ' . $nom . '</p>';
-                    echo '<p class="card-text">Auteur : ' . $auteur . '</p>';
-                    echo '<p class="card-text">Sortie : ' . $date_sortie . '</p>';
-                    echo '<p class="card-text">Description : ' . $descrip . '</p>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
+                    ?>
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="images/<?= $nom_image?>" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <p class="card-text">Nom : <?=$nom?></p>
+                                    <p class="card-text">Auteur : <?=$auteur?></p>
+                                    <p class="card-text">Sortie : <?=$date_sortie?></p>
+                                    <p class="card-text">Description : <?=$descrip?></p>
+                                </div>
+                        </div>
+                    </div>
+            <?php
                 } else {
                     echo "Manga non trouvé.";
                 }
