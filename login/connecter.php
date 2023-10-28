@@ -56,7 +56,7 @@ function startSessionAndRedirect($id, $role) {
     }
 
     $_SESSION["is_invalid"] = false;
-    header("Location: ../accueil.php");
+    header("Location: ../index.php");
     exit;
 }
 ?>
