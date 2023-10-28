@@ -1,5 +1,5 @@
 <?php
-$server = "localhost:3307"; // Adresse du serveur MySQL
+$server = "localhost"; // Adresse du serveur MySQL
 $userdb = "aroyer"; // Nom d'utilisateur de la base de données
 $userpwd = "Adrien1402"; // Mot de passe de la base de données
 $base = "mangasan"; // Nom de la base de données
