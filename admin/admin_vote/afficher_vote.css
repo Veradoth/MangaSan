@@ -17,7 +17,7 @@
 /* Style des champs de saisie */
 .form-container input[type="text"],
 .form-container input[type="number"],
-.form-container input[type="time"] {
+.form-container input[type="datetime-local"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -26,6 +26,7 @@
 }
 
 /* Style du bouton */
+.form-container button[name="return"],
 .form-container input[type="submit"] {
     background-color: #007BFF;
     color: #fff;
@@ -36,6 +37,7 @@
     transition: background-color 0.3s;
 }
 
+.form-container button[name="return"]:hover,
 .form-container input[type="submit"]:hover {
     background-color: #0056b3;
 }
