@@ -22,20 +22,17 @@
             $stmt->close();
 
             if ($vote) {
-                // Extraction des heures et des minutes de l'heure du vote
-                list($heures, $minutes) = explode(":", $vote['duree']);
                 ?>
 
                 <div class="form-container">
                     <h3>Informations du vote</h3>
                     <form action='modifier.php' method='POST'>
                         <input type="text" name="newNom" placeholder="<?= $vote['nom'] ?>" class="form form-control" autocomplete="off">
-                        <input type="number" name="newNombre" placeholder="<?= $vote['participant'] ?>" class="form form-control" autocomplete="off">
-                        <input type="time" name="newDuree" value="<?= sprintf('%02d:%02d', $heures, $minutes) ?>" class="form form-control" autocomplete="off">
+                        <input type="datetime-local" name="newDuree" value="<?= $vote['duree'] ?>" class="form form-control" autocomplete="off">
                         <input type='hidden' name='numVote' value='<?= $voteId ?>'>
                         <input type='submit' value='Modifier ce vote'>
                     </form>
-                    <button onclick="window.location.href='admin_vote.php'">Retour</button>
+                    <button onclick="window.location.href='admin_vote.php'" name="return">Retour</button>
                 </div>
             <?php
             } else {

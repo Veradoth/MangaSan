@@ -26,14 +26,13 @@
 
                 if ($voteActuel){
                     $nom = $_POST['newNom'] !== '' ? $_POST['newNom'] : $voteActuel['nom'];
-                    $nombre = $_POST['newNombre'] !== '' ? $_POST['newNombre'] : $voteActuel['participant'];
                     $duree = $_POST['newDuree'] !== '' ? $_POST['newDuree'] : $voteActuel['duree'];
 
                     
-                        $sql = "UPDATE vote SET nom = ?, participant = ?, duree = ? WHERE id = ?";
+                        $sql = "UPDATE vote SET nom = ?, duree = ? WHERE id = ?";
                         $stmt = $connexion->prepare($sql); 
                         if ($stmt) {
-                            $stmt->bind_param("sssi", $nom, $nombre, $duree, $num);
+                            $stmt->bind_param("ssi", $nom, $duree, $num);
                             if ($stmt->execute()) {
                                 header("Location:admin_vote.php?success=5");
                             } else {

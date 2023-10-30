@@ -1,10 +1,17 @@
 <?php
-    if(isset($_POST['submit'])){ // Vérifie si le formulaire a été soumis (le bouton submit a été cliqué)
-                extract($_POST); // Extrait les données du formulaire dans des variables distinctes
-                require_once("../../config/config.php");
+if (isset($_POST['submit'])) {
+    extract($_POST);
+    require_once("../../config/config.php");
 
-                $save_manga = $connexion->prepare('INSERT INTO vote(nom, duree) VALUES(?,?)'); // Prépare une requête SQL d'insertion dans la table 'voiture'
-                $save_manga->execute(array($nom, $duree)); // Exécute la requête d'insertion avec les valeurs fournies
-                header("Location:admin_vote.php?success=4");
-            }
+    $mangas_ids_array = json_decode($mangas_ids);
+
+    // Itérer sur le tableau des ID des mangas et insérer chaque ID individuellement
+    foreach ($mangas_ids_array as $manga_id) {
+        $save_vote = $connexion->prepare('INSERT INTO vote(nom, id_manga, duree) VALUES(?,?,?)');
+        $save_vote->execute(array($nom, $manga_id, $duree));
+    }
+
+    header("Location:admin_vote.php?success=4");
+}
+
 ?>

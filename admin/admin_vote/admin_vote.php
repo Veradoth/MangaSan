@@ -21,18 +21,20 @@ if (isset($_GET['success']) && $_GET['success'] == 4) {
     <h3>Ajouter un vote</h3>
     <form method="post" action="ajouter.php" enctype="multipart/form-data">
         <input type="text" name="nom" placeholder="Nom du vote" required="" class="form form-control">
+        <input type="hidden" name="mangas_ids" value="">
         <label for="mangas">Sélectionnez les mangas :</label>
         <select name="mangas" multiple>
-            <?php
-                $sql = "SELECT id, nom FROM manga";
-                $listeManga = $connexion->query($sql);
-                while ($manga = $listeManga->fetch_assoc()) {
-                    echo '<option value="' . $manga['id'] . '">' . $manga['nom'] . '</option>';
-                }
-            ?>
+        <?php
+            $sql = "SELECT id, nom FROM manga";
+            $listeManga = $connexion->query($sql);
+            while ($manga = $listeManga->fetch_assoc()) {
+                echo '<option value="' . $manga['id'] . '">' . $manga['nom'] . '</option>';
+            }
+        ?>
         </select>
-        <?php $connexion->close(); ?>
-        <input type="time" name="duree" placeholder="Durée" required="" class="form form-control">
+
+        <input type="datetime-local" name="duree" required="" class="form form-control">
+        <br>
         <input type="submit" name="submit" class="btn btn-primary">
     </form>
 </div>
@@ -44,6 +46,8 @@ if (isset($_GET['success']) && $_GET['success'] == 4) {
     ?>
 
 </div>
+
+<script src="ChangeIdManga.js"></script>
 
 <!--Champ supprimer un véhicule-->
 
@@ -66,7 +70,7 @@ if (isset($_GET['success']) && $_GET['success'] == 6) {
         <label for="numVote">Vote :</label>
         <select name="numVote" id="numVote">
             <?php
-                $sql = 'SELECT * FROM vote';
+                $sql = 'SELECT id, nom FROM vote GROUP BY nom'; // Regroupe les votes par nom
                 $listeVote = $connexion->query($sql);
                 while ($vote = $listeVote->fetch_assoc()) {
                     echo "<option value='" . $vote['id'] . "'>" . $vote['nom']. '</option>';
@@ -76,9 +80,10 @@ if (isset($_GET['success']) && $_GET['success'] == 6) {
         <?php $connexion->close(); ?>
         <br>
         <br>
-        <input type="submit" value="Voir les informations"/>
+        <input type="submit" value="Supprimer le vote"/>
     </form>
 </div>
+
 
     <?php
     }
