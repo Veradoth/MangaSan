@@ -41,3 +41,32 @@
 .form-container input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+/* Style du label */
+label[for="mangas[]"] {
+    display: block; /* Afficher le label sur une nouvelle ligne */
+    margin-top: 10px; /* Marge supérieure pour l'espacement */
+    font-weight: bold; /* Texte en gras */
+    font-size: 16px; /* Taille de la police */
+    color: #333; /* Couleur du texte */
+}
+
+/* Style de la liste déroulante multisélection */
+select[name="mangas[]"] {
+    width: 100%; /* Largeur à 100% de son contenant */
+    height: 150px; /* Hauteur de la liste déroulante (ajustez selon vos besoins) */
+    padding: 10px; /* Remplissage interne pour l'espacement à l'intérieur de la liste déroulante */
+    border: 1px solid #ccc; /* Bordure de 1 pixel avec une couleur grise */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 14px; /* Taille de la police */
+    color: #333; /* Couleur du texte */
+    background-color: #fff; /* Couleur de fond blanche */
+}
+
+/* Style des options de la liste déroulante multisélection */
+select[name="mangas[]"] option {
+    padding: 5px; /* Remplissage interne pour l'espacement des options */
+}
+
+
+
