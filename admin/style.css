@@ -109,7 +109,7 @@ body{
 .form-container input[type="number"],
 .form-container input[type="date"],
 .form-container textarea,
-.form-container input[type="time"] {
+.form-container input[type="datetime-local"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -160,7 +160,7 @@ body{
 }
 
 /* Style du label */
-label[for="mangas"] {
+label[for="mangas[]"] {
     display: block; /* Afficher le label sur une nouvelle ligne */
     margin-top: 10px; /* Marge supérieure pour l'espacement */
     font-weight: bold; /* Texte en gras */
@@ -169,7 +169,7 @@ label[for="mangas"] {
 }
 
 /* Style de la liste déroulante multisélection */
-select[name="mangas"] {
+select[name="mangas[]"] {
     width: 100%; /* Largeur à 100% de son contenant */
     height: 150px; /* Hauteur de la liste déroulante (ajustez selon vos besoins) */
     padding: 10px; /* Remplissage interne pour l'espacement à l'intérieur de la liste déroulante */
@@ -181,7 +181,7 @@ select[name="mangas"] {
 }
 
 /* Style des options de la liste déroulante multisélection */
-select[name="mangas"] option {
+select[name="mangas[]"] option {
     padding: 5px; /* Remplissage interne pour l'espacement des options */
 }
 
