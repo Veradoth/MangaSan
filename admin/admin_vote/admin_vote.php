@@ -21,23 +21,22 @@ if (isset($_GET['success']) && $_GET['success'] == 4) {
     <h3>Ajouter un vote</h3>
     <form method="post" action="ajouter.php" enctype="multipart/form-data">
         <input type="text" name="nom" placeholder="Nom du vote" required="" class="form form-control">
-        <input type="hidden" name="mangas_ids" value="">
         <label for="mangas">Sélectionnez les mangas :</label>
-        <select name="mangas" multiple>
-        <?php
+        <select name="mangas[]" multiple>
+            <?php
             $sql = "SELECT id, nom FROM manga";
             $listeManga = $connexion->query($sql);
             while ($manga = $listeManga->fetch_assoc()) {
                 echo '<option value="' . $manga['id'] . '">' . $manga['nom'] . '</option>';
             }
-        ?>
+            ?>
         </select>
-
         <input type="datetime-local" name="duree" required="" class="form form-control">
         <br>
         <input type="submit" name="submit" class="btn btn-primary">
     </form>
 </div>
+
 
     <?php
     }
