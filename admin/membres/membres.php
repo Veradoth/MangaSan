@@ -7,55 +7,108 @@
 </head>
 <body>
 <div class="center">
-        <h1>Membres</h1><br><br>
-        <a href="../choix.php">Retour</a>
-        <div class="voiture">
-            <h2>Utilisateurs</h2>
-            <?php
-            require_once("../../config/pdo.php");
+    <h1>Membres</h1><br><br>
+    <a href="../choix.php">Retour</a>
+    <div class="voiture">
+        <?php
+        session_start();
 
-            $sql = 'SELECT * FROM utilisateur';
-            $stmt = $connexion->prepare($sql);
-            $stmt->execute();
+        if (isset($_SESSION['admin_email'])) {
+            // Adresse e-mail de l'administrateur connecté
+            $emailAdministrateurConnecte = $_SESSION['admin_email'];
 
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                // Échapper les données pour éviter les attaques XSS
-                $nom = htmlspecialchars($row['pseudo']);
-                $id = $row['id']; // Utilisez l'ID pour créer un lien sécurisé
+            // Adresse e-mail de l'administrateur spécial
+            $adminSpecialEmail = "admin@gmail.com";
 
-                // Utilisez l'ID dans l'URL pour afficher les détails du manga en toute sécurité
-                echo '<div class="card" style="width: 18rem;">';
-                echo '<div class="card-body">';
-                echo '<h5 class="card-title">' . $nom . '</h5>';
-                echo '<a href="changer_admin.php?id=' . $id . '" class="btn btn-primary">Passer en admin</a>';
-                echo '</div>';
-                echo '</div>';
+            // Connectez-vous à la base de données (remplacez ces valeurs par les vôtres)
+            require_once("../../config/config.php");
+
+            if ($connexion->connect_error) {
+                die("Échec de la connexion à la base de données : " . $connexion->connect_error);
             }
+
             ?>
 
+            <!-- Créez une section pour les administrateurs -->
+            <div class='section-administrateurs'>
             <h2>Administrateurs</h2>
+
             <?php
-            require_once("../../config/pdo.php");
 
-            $sql = 'SELECT * FROM administrateur';
-            $stmt = $connexion->prepare($sql);
-            $stmt->execute();
+            if ($emailAdministrateurConnecte === $adminSpecialEmail) {
+                $query = "SELECT * FROM administrateur";
+            } else {
+                $query = "SELECT * FROM administrateur WHERE mail <> ?";
+            }
 
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                // Échapper les données pour éviter les attaques XSS
-                $nom = htmlspecialchars($row['nom']);
-                $id = $row['id']; // Utilisez l'ID pour créer un lien sécurisé
+            $stmt = $connexion->prepare($query);
 
-                // Utilisez l'ID dans l'URL pour afficher les détails du manga en toute sécurité
-                echo '<div class="card" style="width: 18rem;">';
-                echo '<div class="card-body">';
-                echo '<h5 class="card-title">' . $nom . '</h5>';
-                echo '<a href="changer_user.php?id=' . $id . '" class="btn btn-primary">Passer en utilisateur</a>';
-                echo '</div>';
-                echo '</div>';
+            if ($stmt) {
+                if ($emailAdministrateurConnecte !== $adminSpecialEmail) {
+                    $stmt->bind_param("s", $adminSpecialEmail);
+                }
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+                    $nom = htmlspecialchars($row['nom']);
+                    $id = $row['id'];
+                ?>
+
+                    <div class='card' style='width: 18rem;'>
+                    <div class='card-body'>
+                    <h5 class='card-title'><?= $nom ?></h5>
+                    <a href='changer_user.php?id=<?= $id ?>' class='btn btn-primary'>Passer en utilisateur</a>
+                    </div></div>
+                <?php
+                }
+
+                $stmt->close();
             }
             ?>
-        </div>
+            </div>
+
+            <!-- Créez une section pour les utilisateurs -->
+            <div class='section-utilisateurs'>
+            <h2>Utilisateurs</h2>
+
+            <?php
+
+            $query = "SELECT * FROM utilisateur";
+            $stmt = $connexion->prepare($query);
+
+            if ($stmt) {
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+                    $pseudo = htmlspecialchars($row['pseudo']);
+                    $id = $row['id'];
+
+                    ?>
+
+                    <div class='card' style='width: 18rem;'>
+                    <div class='card-body'>
+                    <h5 class='card-title'><?= $pseudo ?></h5>
+                    <a href='changer_admin.php?id=<?= $id ?>' class='btn btn-primary'>Passer en administrateur</a>
+                    </div></div>
+
+                    <?php
+                }
+
+                $stmt->close();
+            }
+            echo "</div>";
+
+            // Fermez la connexion à la base de données
+            $connexion->close();
+        } else {
+            // Redirigez vers la page de connexion si l'administrateur n'est pas connecté
+            header("Location: connexion.php");
+            exit;
+        }
+        ?>
     </div>
+</div>
 </body>
 </html>

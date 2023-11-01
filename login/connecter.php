@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($admin = $adminResult->fetch_assoc()) {
             if (password_verify($_POST["mdp"], $admin["mdp_hash"])) {
                 // Connexion réussie pour l'administrateur
-                startSessionAndRedirect($admin["id"], "admin");
+                startSessionAndRedirect($admin["id"], "admin", $admin["mail"]);
             }
         }
 
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit;
 }
 
-function startSessionAndRedirect($id, $role) {
+function startSessionAndRedirect($id, $role, $email = null) {
     session_start();
     session_regenerate_id();
     
@@ -53,6 +53,7 @@ function startSessionAndRedirect($id, $role) {
         $_SESSION["user_id"] = $id;
     } elseif ($role === "admin") {
         $_SESSION["admin_id"] = $id;
+        $_SESSION["admin_email"] = $email;
     }
 
     $_SESSION["is_invalid"] = false;
