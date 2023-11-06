@@ -21,6 +21,7 @@
         $name_file = time(). '.jpg'; // Génère un nom unique pour le fichier en utilisant le timestamp actuel
 
         if(!move_uploaded_file($tmp_file, $content_dir.$name_file)){
+            echo "Erreur de téléchargement : " . $_FILES['fichier']['error'];
             exit('Impossible de copier le fichier'); // Arrête l'exécution du code et affiche un message d'erreur si le fichier ne peut pas être copié
         }
 
