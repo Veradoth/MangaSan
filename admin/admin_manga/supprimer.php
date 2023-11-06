@@ -1,8 +1,8 @@
 <?php
 require_once("style_manga.php");
 
-if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["numManga"])){
-    require_once ("../../config/config.php");
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["numManga"])) {
+    require_once("../../config/config.php");
 
     $num = $_POST['numManga'];
 
@@ -16,7 +16,17 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' &&
         $stmtDeleteEditages->close();
     }
 
-    // 2. Supprimer le manga
+    // 2. Mettre à jour la table 'vote' pour définir l'ID du manga sur NULL
+    $sqlUpdateVote = "UPDATE vote SET id_manga = NULL WHERE id_manga = ?";
+    $stmtUpdateVote = $connexion->prepare($sqlUpdateVote);
+
+    if ($stmtUpdateVote) {
+        $stmtUpdateVote->bind_param("i", $num);
+        $stmtUpdateVote->execute();
+        $stmtUpdateVote->close();
+    }
+
+    // 3. Supprimer le manga
     $sqlSelectImage = "SELECT nom_image FROM manga WHERE id = ?";
     $stmtSelectImage = $connexion->prepare($sqlSelectImage);
 
@@ -24,11 +34,11 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' &&
         $stmtSelectImage->bind_param("i", $num);
         $stmtSelectImage->execute();
         $stmtSelectImage->store_result();
-        
+
         if ($stmtSelectImage->num_rows > 0) {
             $stmtSelectImage->bind_result($nomFichier);
             $stmtSelectImage->fetch();
-            
+
             $content_dir = '../../catalogue/images/';
             $cheminFichier = $content_dir . $nomFichier;
 
