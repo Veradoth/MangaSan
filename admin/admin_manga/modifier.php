@@ -50,7 +50,7 @@
                             if ($stmt) {
                                 $stmt->bind_param("sssssi", $nom, $auteur, $sortie, $descrip, $nomFichierNouvelleImage, $num);
                                 if ($stmt->execute()) {
-                                    header("Location:admin_manga.php?success=1");
+                                    header("Location:admin_manga.php?success=2");
                                 } else {
                                     echo 'Erreur lors de la mise à jour du manga : ' . $stmt->error . '<br>';
                                 }
