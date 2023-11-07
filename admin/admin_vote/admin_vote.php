@@ -5,6 +5,13 @@
 <!--Champ ajouter un véhicule-->
 
 <?php
+
+//Envoie un message comme quoi le nom existe déjà
+
+if(isset($_GET['error']) && $_GET['error'] == 1){
+    echo '<p class="error-message">Le nom est déjà pris !</p>';
+}
+
 // Vérifiez si le paramètre "success" est présent dans l'URL
 if (isset($_GET['success']) && $_GET['success'] == 4) {
     echo '<p class="success-message">Le vote a été ajouté.</p>';

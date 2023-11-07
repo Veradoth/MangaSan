@@ -46,6 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 function startSessionAndRedirect($id, $role, $email = null) {
+
+    $timeOut = 300;
+    session_set_cookie_params($timeOut);
+    
     session_start();
     session_regenerate_id();
     
