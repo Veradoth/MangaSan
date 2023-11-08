@@ -7,22 +7,23 @@
 </head>
 <body>
 <?php
-if (isset($_POST['numVote'])) {
+if (isset($_POST['nomVote'])) {
     include "../../config/config.php";
-    $voteId = $_POST['numVote'];
+    $voteName = $_POST['nomVote'];
 
-    $sql = 'SELECT * FROM vote WHERE id = ?';
+    // Sélectionnez tous les votes ayant le même nom
+    $sql = 'SELECT * FROM vote WHERE nom = ?';
     $stmt = $connexion->prepare($sql);
 
     if ($stmt) {
-        $stmt->bind_param("i", $voteId);
+        $stmt->bind_param("s", $voteName);
         $stmt->execute();
         $result = $stmt->get_result();
-        $vote = $result->fetch_assoc();
-        $stmt->close();
 
-        if ($vote) {
-            // Récupérer le nom du vote
+        if ($result->num_rows > 0) {
+            // Affichez une seule fiche d'informations pour le vote
+            $vote = $result->fetch_assoc();
+
             ?>
             <div class='form-container'>
                 <h3>Informations du vote</h3>
@@ -31,19 +32,19 @@ if (isset($_POST['numVote'])) {
                 <p>Noms des mangas associés :</p>
                 <ul>
                 <?php
-                // Récupérer les mangas associés à ce vote en utilisant la jointure SQL
-                $sqlMangas = 'SELECT manga.id, manga.nom FROM manga
-                INNER JOIN vote_manga ON manga.id = vote_manga.id_manga
-                WHERE vote_manga.id_vote = ?';
+                // Récupérez les mangas associés à ce vote en utilisant une requête SQL
+                $sqlMangas = 'SELECT manga.nom FROM manga
+                INNER JOIN vote ON manga.id = vote.id_manga
+                WHERE vote.nom = ?';
                 $stmtMangas = $connexion->prepare($sqlMangas);
 
                 if ($stmtMangas) {
-                    $stmtMangas->bind_param("i", $voteId);
+                    $stmtMangas->bind_param("s", $voteName);
                     $stmtMangas->execute();
                     $resultMangas = $stmtMangas->get_result();
 
                     while ($manga = $resultMangas->fetch_assoc()) {
-                        echo $manga['nom']."<br>";
+                        echo "<li>" . $manga['nom'] . "</li>";
                     }
                     $stmtMangas->close();
                 } else {
@@ -52,18 +53,20 @@ if (isset($_POST['numVote'])) {
                 ?>
                 </ul>
                 <form action='supprimer.php' method='POST'>
-                    <input type='hidden' name='numVote' value=<?= $voteId ?>>
+                    <input type='hidden' name='nomVote' value="<?= $voteName ?>">
                     <input type='submit' value='Supprimer ce vote'>
                 </form>
                 <button onclick="window.location.href='admin_vote.php'" name="return">Retour</button>
             </div>
             <?php
         } else {
-            echo "Vote non trouvé.";
+            echo "Aucun vote trouvé avec le nom : " . $voteName;
         }
+        $stmt->close();
     } else {
-        echo "Erreur de préparation de la requête SQL pour le vote : " . $connexion->error;
+        echo "Erreur de préparation de la requête SQL pour les votes : " . $connexion->error;
     }
+
     $connexion->close();
 } else {
     echo "Veuillez sélectionner un vote à afficher.";

@@ -7,59 +7,64 @@
 </head>
 <body>
     <?php
-    if (isset($_POST['numVote'])) {
+    if (isset($_POST['nomVote'])) {
         include "../../config/config.php";
-        $voteId = $_POST['numVote'];
+        $voteName = $_POST['nomVote'];
 
-        $sql = 'SELECT * FROM vote WHERE id = ?';
+        // Modifier la requête SQL pour obtenir l'ID du vote en fonction de son nom
+        $sql = 'SELECT * FROM vote WHERE nom = ?';
         $stmt = $connexion->prepare($sql);
 
         if ($stmt) {
-            $stmt->bind_param("i", $voteId);
+            $stmt->bind_param("s", $voteName);
             $stmt->execute();
             $result = $stmt->get_result();
             $vote = $result->fetch_assoc();
             $stmt->close();
 
             if ($vote) {
+                // Récupérer l'ID du vote
+                $voteId = $vote['id'];
+
+                // Obtenir la liste des mangas liés à ce vote
+                $sqlMangas = 'SELECT id_manga FROM vote WHERE id = ?';
+                $stmtMangas = $connexion->prepare($sqlMangas);
+                $stmtMangas->bind_param("i", $voteId);
+                $stmtMangas->execute();
+                $resultMangas = $stmtMangas->get_result();
+                $selectedMangas = array();
+
+                while ($rowManga = $resultMangas->fetch_assoc()) {
+                    $mangaIds = explode(',', $rowManga['id_manga']);
+                    $selectedMangas = array_merge($selectedMangas, $mangaIds);
+                }
+                $stmtMangas->close();
                 ?>
 
                 <div class="form-container">
                     <h3>Modifier le vote</h3>
                     <form action='modifier.php' method='POST'>
                         <label for="newNom">Nouveau nom du vote:</label>
-                        <input type="text" name="newNom" placeholder="<?= $vote['nom'] ?>" class="form form-control" autocomplete="off">
-
-                        <?php
-                            function isMangaSelected($mangaId, $voteId, $connexion) {
-                            $sql = 'SELECT id_vote FROM vote_manga WHERE id_manga = ? AND id_vote = ?';
-                            $stmt = $connexion->prepare($sql);
-
-                            if ($stmt) {
-                                $stmt->bind_param("ii", $mangaId, $voteId);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                $stmt->close();
-                                return $result->num_rows > 0;
-                            }
-                            return false;
-                            }
-                        ?>
+                        <input type="text" name="newNom" value="<?= $vote['nom'] ?>" class="form form-control" autocomplete="off">
+                        
                         <label for="mangas">Sélectionnez les mangas :</label>
                         <select name="mangas[]" multiple>
                         <?php
                             $sql = "SELECT id, nom FROM manga";
                             $listeManga = $connexion->query($sql);
+
                             while ($manga = $listeManga->fetch_assoc()) {
-                                $isSelected = isMangaSelected($manga['id'], $voteId, $connexion) ? 'selected' : '';
-                                echo '<option value="' . $manga['id'] . '" ' . $isSelected . '>' . $manga['nom'] . '</option>';
+                                $isSelected = in_array($manga['id'], $selectedMangas) ? 'selected' : '';
+                                $highlightClass = $isSelected ? 'selected-manga' : '';
+                                echo '<option value="' . $manga['id'] . '" ' . $isSelected . ' class="' . $highlightClass . '">' . $manga['nom'] . '</option>';
                             }
                         ?>
+
                         </select>
                         <label for="newDuree">Nouvelle durée:</label>
-                        <input type="datetime-local" name="newDuree" value="<?= date('Y-m-d\TH:i', strtotime($vote['duree'])) ?>" class="form form-control" autocomplete="off" required>
+                        <input type="datetime-local" name="newDuree" value="<?= $vote['duree'] ?>" class="form form-control" autocomplete="off">
                         
-                        <input type='hidden' name='numVote' value='<?= $voteId ?>'>
+                        <input type='hidden' name='nomVote' value='<?= $voteName ?>'>
                         <input type='submit' value='Modifier ce vote'>
                     </form>
                     <button onclick="window.location.href='admin_vote.php'" name="return">Retour</button>
@@ -74,5 +79,6 @@
         echo "Veuillez sélectionner un vote à modifier.";
     }
     ?>
+
 </body>
 </html>

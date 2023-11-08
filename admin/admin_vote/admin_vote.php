@@ -73,22 +73,22 @@ if (isset($_GET['success']) && $_GET['success'] == 6) {
 <div class="form-container">
     <h3>Supprimer un vote</h3>
     <form action="supprimer_vote.php" method="POST">
-        <label for="numVote">Vote :</label>
-        <select name="numVote" id="numVote">
+        <label for="nomVote">Vote :</label>
+        <select name="nomVote" id="nomVote">
             <?php
                 $sql = 'SELECT id, nom FROM vote GROUP BY nom'; // Regroupe les votes par nom
-                $listeVote = $connexion->query($sql);
-                while ($vote = $listeVote->fetch_assoc()) {
-                    echo "<option value='" . $vote['id'] . "'>" . $vote['nom']. '</option>';
+                $listeVotes = $connexion->query($sql);
+                while ($vote = $listeVotes->fetch_assoc()) {
+                    echo "<option value='" . $vote['nom'] . "'>" . $vote['nom'] . '</option>';
                 }
             ?>
         </select>
-        <?php $connexion->close(); ?>
         <br>
         <br>
-        <input type="submit" value="Supprimer le vote"/>
+        <input type="submit" value="Voir les informations"/>
     </form>
 </div>
+
 
 
     <?php
@@ -113,13 +113,13 @@ if (isset($_GET['success']) && $_GET['success'] == 5) {
     <div class="form-container">
         <h3>Modifier un vote</h3>
         <form action="modifier_vote.php" method="POST">
-            <label for="numVote">Vote :</label>
-            <select name="numVote" id="numVote">
+            <label for="nomVote">Vote :</label>
+            <select name="nomVote" id="nomVote">
             <?php
-                $sql = 'SELECT * FROM vote';
+                $sql = 'SELECT * FROM vote GROUP BY nom';
                 $listeVote = $connexion->query($sql);
                 while ($vote = $listeVote->fetch_assoc()) {
-                    echo "<option value='" . $vote['id'] . "'>" . $vote['nom']. '</option>';
+                    echo "<option value='" . $vote['nom'] . "'>" . $vote['nom']. '</option>';
                 }
             ?>
         </select>
