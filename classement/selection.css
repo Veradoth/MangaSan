@@ -1,0 +1,15 @@
+/* Ajoutez votre CSS pour le style visuel ici */
+.manga-group {
+    display: none; /* Cachez tous les groupes initialement */
+    justify-content: space-between;
+}
+
+.manga-item {
+    width: 48%; /* Chaque manga occupe 48% de la largeur */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.confirmation-group {
+    display: none; /* Cachez le groupe de confirmation initialement */
+}
