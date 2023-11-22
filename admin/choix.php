@@ -10,7 +10,6 @@
     <label for="action">Que voulez-vous faire ?</label>
     <select id="action">
         <option value="manga">Manga</option>
-        <option value="vote">Vote</option>
         <option value="membres">Membres</option>
     </select>
     <button id="submit">Confirmer</button>
