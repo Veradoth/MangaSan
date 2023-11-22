@@ -13,11 +13,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../style.css">
-    <title>Administration</title>
+    <title>Vote</title>
 </head>
 <body>
     <header class="header-up"> <!-- En-tête en haut du site -->
-        <h2 class="logo">Administration</h2>
+        <h2 class="logo">Vote</h2>
         <nav class="navigation">
             <a href="?action=add_vote">Ajouter un vote</a>
             <a href="?action=mod_vote">Modifier un vote</a>
