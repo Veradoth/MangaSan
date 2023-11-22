@@ -21,6 +21,8 @@
         </nav>
     </header>
 
+    <button onclick="window.location.href='../admin/admin_vote/admin_vote.php.php';" class="btnLogin-popup" name="Ajouter un vote"></button>
+
     <div class="container mt-4">
         <h1>Liste des votes</h1>
 
