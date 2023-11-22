@@ -22,7 +22,7 @@
             <a href="?action=add_vote">Ajouter un vote</a>
             <a href="?action=mod_vote">Modifier un vote</a>
             <a href="?action=suppr_vote">Supprimer un vote</a>
-            <button onclick="window.location.href='../choix.php';" class="btnLogin-popup" name="valider">Retour <!-- Affiche le bouton de déconnexion -->
+            <button onclick="window.location.href='../../classement/vote.php';" class="btnLogin-popup" name="valider">Retour <!-- Affiche le bouton de déconnexion -->
         </nav>
     </header>
     <script src="choix.js"></script>
