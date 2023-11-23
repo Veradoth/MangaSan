@@ -18,7 +18,7 @@ elseif (isset($_SESSION["admin_id"])){
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="test.css">
-    <title>MangaSan</title>
+    <title>Toto</title>
 </head>
 <body>
     <header class="header-up"> <!-- En-tête en haut du site -->
