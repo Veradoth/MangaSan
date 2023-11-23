@@ -4,7 +4,7 @@ require_once("style_manga.php");
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["numManga"])) {
     require_once("../../config/config.php");
 
-    $num = $_POST['numManga'];
+    $num = $_POST['numMang'];
 
     // 1. Supprimer les éditions (editages) associées à ce manga
     $sqlDeleteEditages = "DELETE FROM editage WHERE id_manga = ?";
