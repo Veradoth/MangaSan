@@ -1,11 +1,5 @@
 <?php
     require_once("../../session.php");
-
-    if (!isset($_SESSION["admin_id"])) {
-        // L'utilisateur n'est pas connecté en tant qu'administrateur, redirigez-le vers la page d'accueil.
-        header("Location: ../accueil.php");
-        exit;
-    }
 ?>
 
 <!DOCTYPE html>
