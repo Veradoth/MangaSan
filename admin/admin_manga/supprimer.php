@@ -14,6 +14,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' &&
         $stmtDeleteEditages->bind_param("i", $num);
         $stmtDeleteEditages->execute();
         $stmtDeleteEditages->close();
+    } else {
+        header("Location: maintenance.php");
+        exit();
     }
 
     // 2. Mettre à jour la table 'vote' pour définir l'ID du manga sur NULL
@@ -24,6 +27,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' &&
         $stmtUpdateVote->bind_param("i", $num);
         $stmtUpdateVote->execute();
         $stmtUpdateVote->close();
+    } else {
+        header("Location: maintenance.php");
+        exit();
     }
 
     // 3. Supprimer le manga
@@ -51,12 +57,25 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST' &&
                     $stmtDeleteManga->execute();
                     $stmtDeleteManga->close();
 
-                    if (!$connexion->errno) {
-                        header("Location: admin_manga.php?success=3");
+                    if ($connexion->errno) {
+                        header("Location: maintenance.php");
+                        exit();
                     }
+                } else {
+                    header("Location: maintenance.php");
+                    exit();
                 }
+            } else {
+                header("Location: maintenance.php");
+                exit();
             }
+        } else {
+            header("Location: maintenance.php");
+            exit();
         }
+    } else {
+        header("Location: maintenance.php");
+        exit();
     }
 
     mysqli_close($connexion);
