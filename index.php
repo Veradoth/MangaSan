@@ -27,7 +27,7 @@ elseif (isset($_SESSION["admin_id"])){
             <a href="index.php">Accueil</a>
             <a href="#">A propos</a>
             <a href="#">Service</a>
-            <a href="#">Contact</a>
+            <a href="contact.php">Contact</a>
             <?php if ($showAdminLink): ?>
             <a href="admin/choix.php">Administration</a>
             <?php endif; ?>
