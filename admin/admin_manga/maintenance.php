@@ -10,6 +10,6 @@
     <h1>Maintenance</h1>
 
     <p>Désolé, cette page est en cours de maintenance.Revenez plus tard.</p>
-    <button onclick="window.location.href='admin_manga.php';" name ="retour" value="Retour"></button> 
+    <button onclick="window.location.href='admin_manga.php';" name="retour" value="Retour">Retour</button> 
 </body>
 </html>
