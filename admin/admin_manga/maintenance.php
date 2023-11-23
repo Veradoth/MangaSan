@@ -11,9 +11,6 @@
     <title>Maintenance</title>
 </head>
 <body>
-    <h1>Maintenance</h1>
-
-    <p>Désolé, cette page est en cours de maintenance.Revenez plus tard.</p>
-    <button onclick="window.location.href='admin_manga.php';" name="retour" value="Retour">Retour</button> 
+    <p>Désolé, cette page est en cours de maintenance.Revenez plus tard.</p> 
 </body>
 </html>
