@@ -22,7 +22,7 @@
             <input type="submit" value="Envoyer">
         </div>
     </form>
-    <button onclick="window.location.href='../index.php';" class="bouton">Voir les mangas</button>
+    <button onclick="window.location.href='../index.php';" class="bouton">Retour</button>
 
 </body>
 </html>
