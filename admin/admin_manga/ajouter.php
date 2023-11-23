@@ -4,7 +4,7 @@ if(isset($_POST['submit'])){
     require_once("../../config/config.php");
     extract($_POST); 
 
-    $content_dir='../../catalogue/image/'; 
+    $content_dir='../../catalogue/images/'; 
 
     $tmp_file = $_FILES['fichier']['tmp_name']; 
 
