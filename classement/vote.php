@@ -21,7 +21,7 @@
         </nav>
     </header>
 
-    <a href="../admin/admin_vote/admin_vote.php" class="btn btn-primary">Ajouter un vote</a>
+    <button onclick="window.location.href='../admin/admin_vote/admin_vote.php';" class="bouton">Ajouter un vote</button>
 
 
     <div class="container mt-4">
