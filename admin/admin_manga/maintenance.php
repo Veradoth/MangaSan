@@ -1,3 +1,7 @@
+<?php
+    require_once("style_manga.php"); // Inclusion du fichier header.php (probablement contenant la structure de l'en-tête de la page)
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
